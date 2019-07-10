@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.namitagram.models.Post;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -32,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,29 +59,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-
-        final Post.Query postsQuery = new Post.Query();
-        postsQuery.getTop()
-                .withUser();
-
-
-        postsQuery.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> objects, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < objects.size(); i++) {
-                        Log.d("home activity", "post[" + i + "] = "
-                                + objects.get(i).getDescription()
-                                + "\nusername = " + objects.get(i).getUser().getUsername());
-                    }
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -244,10 +222,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                         Log.d("Saving", "success");
                         etCaption.setText("");
                         ivPreview.setImageResource(0);
+                        Intent intent = new Intent(HomeActivity.this, FeedActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
         }
     }
-
 }
