@@ -7,8 +7,9 @@
 
     <Button
         android:id="@+id/btnCapture"
+        style="@style/ButtonStyle"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
@@ -25,13 +26,17 @@
         android:id="@+id/ivPreview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/etCaption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCapture"
-        tools:srcCompat="#00BCD4" />
+        app:srcCompat="@color/blue_4"
+        tools:srcCompat="@color/blue_4" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -45,6 +50,7 @@
 
     <EditText
         android:id="@+id/etCaption"
+        style="@style/EditTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,7 +59,7 @@
         android:ems="10"
         android:hint="Add Caption"
         android:inputType="textPersonName"
-        android:onClick="onPost"
+        android:backgroundTint="@color/blue_5"
         app:layout_constraintBottom_toTopOf="@+id/btnPost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -62,13 +68,15 @@
 
     <Button
         android:id="@+id/btnPost"
+        style="@style/ButtonStyle"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="15dp"
         android:background="#E91E63"
+        android:onClick="onPost"
         android:text="Post to Namitagram"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"

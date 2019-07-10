@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.namitagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -220,27 +221,33 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @BindView(R.id.etCaption) EditText etCaption;
-    public void onPost(View w){
-        String description = etCaption.getText().toString();
-        ParseUser user = ParseUser.getCurrentUser();
-//        savePost(description,user);
-        Post post = new Post();
-        post.setDescription(description);
-        post.setUser(user);
-//        post.set
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null){
-                    Log.d("Saving","Error while saving");
-                    e.printStackTrace();
-                    return;
-                }else{
-                    Log.d("Saving", "success");
-                    etCaption.setText("");
+    public void onPost(View v){
+        if (photoFile == null || ivPreview.getDrawable() == null){
+            Log.e("Photo Error", "No photo to submit");
+            Toast.makeText(HomeActivity.this, "There is no photo!", Toast.LENGTH_SHORT).show();
+        }else{
+            String description = etCaption.getText().toString();
+            ParseUser user = ParseUser.getCurrentUser();
+            Post post = new Post();
+            post.setDescription(description);
+            post.setUser(user);
+            post.setImage(new ParseFile(photoFile));
+            Log.d("Set", "set everything");
+            post.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null){
+                        Log.d("Saving","Error while saving");
+                        e.printStackTrace();
+                        return;
+                    }else{
+                        Log.d("Saving", "success");
+                        etCaption.setText("");
+                        ivPreview.setImageResource(0);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
 }

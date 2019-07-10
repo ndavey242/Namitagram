@@ -175,7 +175,7 @@
         <item name="android:layout_width">@dimen/avatar_reel_ring_size_large</item>
         <item name="android:layout_height">@dimen/avatar_reel_ring_size_large</item>
     </style>
-    <style name="Base.Theme" parent="@android:style/Theme.Holo.Light">
+    <style name="Base.Theme" parent="Theme.AppCompat">
         <item name="backgroundColorPrimaryDark">@color/status_bar_background</item>
     </style>
     <style name="Base.Theme.Instagram" parent="@style/Base.Theme">
