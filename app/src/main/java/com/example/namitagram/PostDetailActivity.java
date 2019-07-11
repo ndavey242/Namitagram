@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.namitagram.models.Post;
 import com.example.namitagram.models.TimeFormatter;
@@ -40,7 +39,7 @@ public class PostDetailActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(post.getImage().getUrl())
                 .apply(new RequestOptions()
-                        .transform(new RoundedCorners(20)))
+                        .centerCrop())
                 .into(ivPhoto);
 
 

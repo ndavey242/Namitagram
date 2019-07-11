@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.namitagram.models.EndlessRecyclerViewScrollListener;
 import com.example.namitagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,6 +27,9 @@ public class ProfileFragment extends Fragment {
     PostAdapter postAdapter;
     ArrayList<Post> posts;//our data source
     RecyclerView rvPosts;
+
+    private EndlessRecyclerViewScrollListener scrollListener;
+
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
 
@@ -51,7 +57,7 @@ public class ProfileFragment extends Fragment {
                 //first clear everything out
                 postAdapter.clear();
                 //repopulate
-                populateFeed();
+                populateFeed(Calendar.getInstance().getTime());
                 //now make sure swipeContainer.setRefreshing is set to false
                 //but let's not do that here becauuuuuse.... ASYNCHRONOUS
                 //lets put it at the end of populateTimeline instead!
@@ -78,17 +84,37 @@ public class ProfileFragment extends Fragment {
         //RecyclerView setup (layout manager, use adapter), pass in the context!
         //the layout manager needs the context to know what kinds of settings to use
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+        //endless scrolling
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextData(page);
+            }
+        };
+
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);
+
         rvPosts.setLayoutManager(linearLayoutManager);
         //set the adapter
         rvPosts.setAdapter(postAdapter);
 
-        populateFeed();
+        populateFeed(Calendar.getInstance().getTime());
     }
 
-    private void populateFeed() {
+    //for endless scrolling
+    public void loadNextData(int offset) {
+        Date oldestDate = posts.get(posts.size() - 1).getCreatedAt(); //get the created at of the oldest post
+        populateFeed(oldestDate);
+    }
+
+    private void populateFeed(Date oldestDate) {
 
         final Post.Query postsQuery = new Post.Query();
-        postsQuery.getTop()
+        postsQuery.getTop(oldestDate)
                 .withUser()
                 .onlyOneUser();
 

@@ -118,7 +118,7 @@ public class CaptureFragment extends Fragment {
                 //rotate the bitmap
                 Bitmap resizedBitmap = rotateBitmapOrientation(takenPhotoUri.getPath());
 
-//                Glide.with(this).asBitmap().load(resizedBitmap).apply(new RequestOptions().centerCrop()).into()
+//                resizedBitmap=Bitmap.createBitmap(resizedBitmap, 0, 0, 200, 200);
 
                 // Configure byte output stream
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();

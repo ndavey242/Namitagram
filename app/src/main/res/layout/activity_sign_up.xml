@@ -29,10 +29,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/blue_5"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakeProfPic"
         app:layout_constraintEnd_toEndOf="@+id/etUsername"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etUsername"
@@ -56,15 +58,51 @@
         app:layout_constraintTop_toBottomOf="@+id/tvLogo" />
 
     <Button
+        android:id="@+id/btnTakeProfPic"
+        style="@style/ButtonStyle"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="8dp"
+        android:background="#D2FF0074"
+        android:text="Take Profile Picture"
+        app:layout_constraintBottom_toTopOf="@+id/ivArrow"
+        app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/etPassword" />
+
+    <Button
         android:id="@+id/btnSignUp"
         style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="32dp"
         android:background="#D2FF0074"
         android:text="Sign Up"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/etPassword"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etPassword"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintStart_toStartOf="@+id/etPassword" />
+
+    <ImageView
+        android:id="@+id/ivProfPic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/black" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="52dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivProfPic"
+        app:layout_constraintEnd_toEndOf="@+id/btnTakeProfPic"
+        app:layout_constraintStart_toStartOf="@+id/btnTakeProfPic"
+        app:srcCompat="@drawable/arrow" />
+
 </android.support.constraint.ConstraintLayout>

@@ -6,17 +6,17 @@
         android:enabled="true"
         android:icon="@drawable/instagram_home_filled_24"
         android:title="Feed"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/Capture"
         android:enabled="true"
         android:icon="@drawable/instagram_new_post_filled_24"
         android:title="Capture"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/Profile"
         android:enabled="true"
         android:icon="@drawable/instagram_user_filled_24"
         android:title="Profile"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

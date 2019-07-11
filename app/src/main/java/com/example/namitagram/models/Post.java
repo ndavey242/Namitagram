@@ -50,10 +50,11 @@ public class Post extends ParseObject implements Parcelable {
             super(Post.class);
         }
 
-        //only want the top 20
-        public Query getTop(){
+        //only want the top 20 greater than the current oldest date
+        public Query getTop(java.util.Date oldestDate){
             setLimit(20);
             orderByDescending("createdAt");
+            whereLessThan(KEY_CREATED_AT,oldestDate);
             return this;
         }
 

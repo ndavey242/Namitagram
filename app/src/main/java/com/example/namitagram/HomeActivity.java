@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity {
     private String myUsername;
+
     @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavigationView;
 
 
@@ -82,5 +83,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
     }
+
 
 }
