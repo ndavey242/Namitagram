@@ -2,6 +2,7 @@ package com.example.namitagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,22 +54,53 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     //for each row we are showing, we need to bind the value of the tweet object to that element
     //as the user scrolls down, repopulate viewholder based on position
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         //get the data according to position (i)
-        Post post = posts.get(i);
+        final Post post = posts.get(i);
 
         //populate the views according to this data
         viewHolder.tvUsername.setText(post.getUser().getUsername());
-//        viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
         viewHolder.tvCaption.setText(post.getDescription());
         viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(post.getCreatedAt().toString()));
 
+        viewHolder.tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+        if (post.isLiked()){
+            viewHolder.ivLike.setImageResource(R.drawable.ufi_heart_active);
+            viewHolder.ivLike.setColorFilter(Color.argb(255,255,0,0));
+        }else {
+            viewHolder.ivLike.setImageResource(R.drawable.ufi_heart);
+            viewHolder.ivLike.setColorFilter(Color.argb(255,0,0,0));
+        }
 
+
+        //load the post image
         Glide.with(context)
                 .load(post.getImage().getUrl())
                 .apply(new RequestOptions()
                         .centerCrop())
                 .into(viewHolder.ivPhoto);
+
+        //enable liking & unliking
+        viewHolder.ivLike.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(!post.isLiked()){
+                    //like
+                    post.like();
+                    viewHolder.ivLike.setImageResource(R.drawable.ufi_heart_active);
+                    viewHolder.ivLike.setColorFilter(Color.argb(255,255,0,0));
+
+                }else{
+                    //unlike
+                    post.unlike();
+                    viewHolder.ivLike.setImageResource(R.drawable.ufi_heart);
+                    viewHolder.ivLike.setColorFilter(Color.argb(255,0,0,0));
+                }
+                post.saveInBackground();
+                viewHolder.tvNumLikes.setText(Integer.toString(post.getNumLikes()));
+            }
+        });
+
     }
 
 
@@ -85,6 +117,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         //            @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
         @BindView(R.id.ivPhoto) ImageView ivPhoto;
         @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
+        @BindView(R.id.ivLike) ImageView ivLike;
+        @BindView(R.id.tvNumLikes) TextView tvNumLikes;
+        @BindView(R.id.ivComment) ImageView ivComment;
+        @BindView(R.id.tvNumComments) TextView tvNumComments;
 
 
         public ViewHolder(View itemView) {
