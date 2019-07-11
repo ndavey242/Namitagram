@@ -1,7 +1,7 @@
 package com.example.namitagram;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,30 +11,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.namitagram.models.Post;
+import com.example.namitagram.models.TimeFormatter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     //pass in the posts array into the constructor
     // mPosts is just a reference to posts
-    private List<Post> mPosts;
-
-    public PostAdapter(List<Post> posts, Activity activity){
-        mPosts = posts;
-        this.activity = activity;
-    }
-
-    //context to be used in onCreateVH & onBind
+    private List<Post> posts;
     Context context;
-    //activity to be set in constructor & to be used to pass TimelineActivity into onClickReply intent
-    Activity activity;
+
+    public PostAdapter(List<Post> posts, Context context){
+        this.posts = posts;
+        this.context = context;
+    }
 
 
     //for each row, inflate the layout and pass into ViewHolder class
@@ -46,10 +43,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         //so instead make it a public variable for the whole class
         context = viewGroup.getContext();
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View postView = inflater.inflate(R.layout.item_post, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(postView);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_post, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -60,17 +55,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         //get the data according to position (i)
-        Post post = mPosts.get(i);
+        Post post = posts.get(i);
 
         //populate the views according to this data
         viewHolder.tvUsername.setText(post.getUser().getUsername());
 //        viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
         viewHolder.tvCaption.setText(post.getDescription());
+        viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(post.getCreatedAt().toString()));
+
 
         Glide.with(context)
                 .load(post.getImage().getUrl())
                 .apply(new RequestOptions()
-                        .transform(new RoundedCorners(20)))
+                        .centerCrop())
                 .into(viewHolder.ivPhoto);
     }
 
@@ -78,7 +75,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     //how many to display
     @Override
     public int getItemCount() {
-        return mPosts.size();
+        return posts.size();
     }
 
 
@@ -87,6 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         @BindView(R.id.tvCaption) TextView tvCaption;
         //            @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
         @BindView(R.id.ivPhoto) ImageView ivPhoto;
+        @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
 
 
         public ViewHolder(View itemView) {
@@ -95,32 +93,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         }
 
-//            @OnClick(R.id.clItem)
-//            public void onClickItem(View view) {
-//                int position = getAdapterPosition(); // gets item position
-//                Tweet tweet = mTweets.get(position);
-//                Intent i = new Intent(context, TweetDetailActivity.class);
-//                i.putExtra("TWEET", Parcels.wrap(tweet));
-//                context.startActivity(i);
-//
-//            }
-//
-//            @OnClick (R.id.ibReply)
-//            public void onClickReply(View view) {
-//                int position = getAdapterPosition(); // gets item position
-//                Tweet tweet = mTweets.get(position);
-//                User user = tweet.user;
-//                String screenName = user.screenName;
-//                Intent i = new Intent(context, ComposeActivity.class);
-//                i.putExtra("REPLY", true);
-//                i.putExtra("SCREEN_NAME", "@" + screenName);
-//                activity.startActivityForResult(i,20);
-//            }
+        @OnClick(R.id.clItem)
+        public void onClickItem(View view) {
+            int position = getAdapterPosition(); // gets item position
+            Post post = posts.get(position);
+            Intent i = new Intent(context, PostDetailActivity.class);
+            i.putExtra("POST", post);
+            context.startActivity(i);
+        }
     }
 
     // Clean all elements of the recycler
     public void clear() {
-        mPosts.clear();
+        posts.clear();
         notifyDataSetChanged();
     }
 }
