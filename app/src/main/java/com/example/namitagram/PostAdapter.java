@@ -101,6 +101,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             }
         });
 
+        //enable commenting
+        viewHolder.ivComment.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 

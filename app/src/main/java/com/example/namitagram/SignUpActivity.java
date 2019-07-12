@@ -180,12 +180,16 @@ public class SignUpActivity extends AppCompatActivity {
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
-        Log.d("profpic", photoFile.toString());
-        user.put("profPic", new ParseFile(photoFile));
+
+
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
+
+                    ParseUser.getCurrentUser().put("profPic", new ParseFile(photoFile));
+                    ParseUser.getCurrentUser().saveInBackground();
+
                     finish();
 //                    login(username, password);
                 } else {

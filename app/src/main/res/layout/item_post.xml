@@ -11,7 +11,6 @@
         style="@style/FootNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="12dp"
         android:text="Created At"
@@ -52,15 +51,19 @@
         style="@style/Body"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="244dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="20dp"
         android:text="Caption"
         app:layout_constraintBottom_toTopOf="@+id/tvCreatedAt"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvUsername2" />
 
     <ImageView
         android:id="@+id/ivLike"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tvCaption"
@@ -110,6 +113,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/ivLike"
         app:layout_constraintEnd_toStartOf="@+id/ivComment"
@@ -123,6 +127,7 @@
         android:layout_width="0dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/ivLike"
         app:layout_constraintEnd_toStartOf="@+id/ivDirect"
@@ -130,13 +135,12 @@
 
     <TextView
         android:id="@+id/tvUsername2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/tvCaption"
+        android:text="Username"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNumLikes" />
 </android.support.constraint.ConstraintLayout>
