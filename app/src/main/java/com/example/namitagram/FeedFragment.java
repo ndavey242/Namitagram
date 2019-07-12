@@ -72,7 +72,6 @@ public class FeedFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        setHasOptionsMenu(true);
 
         return view;
     }
@@ -106,7 +105,6 @@ public class FeedFragment extends Fragment {
         //set the adapter
         rvPosts.setAdapter(postAdapter);
 
-        getActivity().invalidateOptionsMenu();
         populateFeed(Calendar.getInstance().getTime());
 //      ^^ in the action progress bar
 
@@ -119,7 +117,6 @@ public class FeedFragment extends Fragment {
     }
 
     private void populateFeed(final Date oldestDate) {
-//        showProgressBar();
         final Post.Query postsQuery = new Post.Query();
         postsQuery.getTop(oldestDate)
                 .withUser();
@@ -143,27 +140,6 @@ public class FeedFragment extends Fragment {
         });
 
         swipeContainer.setRefreshing(false);
-//        hideProgressBar();
     }
 
-    //CODE FOR ACTION PROGRESS BAR
-
-//    MenuItem miActionProgressItem;
-//
-//    @Override
-//    public void onPrepareOptionsMenu(Menu menu) {
-//        miActionProgressItem = menu.findItem(R.id.miActionProgress);
-//        populateFeed(Calendar.getInstance().getTime());
-//        getActivity().onCreateOptionsMenu(menu);
-//    }
-//
-//    public void showProgressBar() {
-//        // Show progress item
-//        miActionProgressItem.setVisible(true);
-//    }
-//
-//    public void hideProgressBar() {
-//        // Hide progress item
-//        miActionProgressItem.setVisible(false);
-//    }
 }
