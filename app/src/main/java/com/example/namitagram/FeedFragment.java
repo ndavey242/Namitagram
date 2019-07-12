@@ -1,5 +1,6 @@
 package com.example.namitagram;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,10 @@ public class FeedFragment extends Fragment {
     PostAdapter postAdapter;
     ArrayList<Post> posts;//our data source
     RecyclerView rvPosts;
+
+    ProgressDialog dialog;
+
+
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
@@ -105,8 +110,10 @@ public class FeedFragment extends Fragment {
         //set the adapter
         rvPosts.setAdapter(postAdapter);
 
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Loading Posts");
+
         populateFeed(Calendar.getInstance().getTime());
-//      ^^ in the action progress bar
 
     }
 
@@ -117,10 +124,10 @@ public class FeedFragment extends Fragment {
     }
 
     private void populateFeed(final Date oldestDate) {
+        dialog.show();
         final Post.Query postsQuery = new Post.Query();
         postsQuery.getTop(oldestDate)
                 .withUser();
-
 
         postsQuery.findInBackground(new FindCallback<Post>() {
             @Override
@@ -138,8 +145,8 @@ public class FeedFragment extends Fragment {
                 }
             }
         });
-
         swipeContainer.setRefreshing(false);
+        dialog.dismiss();
     }
 
 }
