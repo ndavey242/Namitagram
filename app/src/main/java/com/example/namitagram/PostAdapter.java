@@ -145,7 +145,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         @BindView(R.id.ivLike) ImageView ivLike;
         @BindView(R.id.tvNumLikes) TextView tvNumLikes;
         @BindView(R.id.ivComment) ImageView ivComment;
-        @BindView(R.id.tvNumComments) TextView tvNumComments;
 
 
         public ViewHolder(View itemView) {
