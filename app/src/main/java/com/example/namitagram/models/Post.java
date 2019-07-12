@@ -63,7 +63,7 @@ public class Post extends ParseObject implements Parcelable {
             try {
                 String objectId = ParseUser.getCurrentUser().getObjectId();
                 //have to use .equals when comparing two strings
-                if(likedBy.getJSONObject(i).getString("objectID").equals(objectId)){
+                if(likedBy.getJSONObject(i).getString("objectId").equals(objectId)){
                     return true;
                 }
                 likedBy.get(i);
