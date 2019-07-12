@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.namitagram.models.Post;
 import com.example.namitagram.models.TimeFormatter;
+import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -80,6 +81,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                         .centerCrop())
                 .into(viewHolder.ivPhoto);
 
+        ParseFile profFile = post.getUser().getParseFile("profPic");
+        if (profFile != null) {
+            viewHolder.ivProfPic.setVisibility(View.VISIBLE);
+            //load the profile image
+            Glide.with(context)
+                    .load(profFile.getUrl())
+                    .apply(new RequestOptions()
+                            .centerCrop())
+                    .into(viewHolder.ivProfPic);
+        } else {
+            viewHolder.ivProfPic.setVisibility(View.INVISIBLE);
+        }
+
+
         //enable liking & unliking
         viewHolder.ivLike.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -122,8 +137,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tvUsername) TextView tvUsername;
         @BindView(R.id.tvCaption) TextView tvCaption;
-        //            @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
         @BindView(R.id.ivPhoto) ImageView ivPhoto;
+        @BindView(R.id.ivProfPic) ImageView ivProfPic;
         @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
         @BindView(R.id.ivLike) ImageView ivLike;
         @BindView(R.id.tvNumLikes) TextView tvNumLikes;
