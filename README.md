@@ -8,7 +8,7 @@ Time spent: **21** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is completed:
+The following functionality is completed:
 
 - [X] User sees app icon in home screen.
 - [X] User can sign up to create a new account using Parse authentication
@@ -19,11 +19,11 @@ The following **required** functionality is completed:
 - [X] User can pull to refresh the last 20 posts submitted to "Instagram"
 - [X] User can tap a post to view post details, including timestamp and caption.
 
-The following **stretch** features are implemented:
+The following features are implemented:
 
 - [X] Style the login page to look like the real Instagram login page.
 - [X] Style the feed to look like the real Instagram feed.
-- [X] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using a Bottom Navigation View.
+- [X] User can switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using a Bottom Navigation View.
 - [X] User can load more posts once he or she reaches the bottom of the feed using infinite scrolling.
 - [X] Show the username and creation time for each post
 - [X] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
